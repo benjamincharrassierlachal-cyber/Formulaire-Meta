@@ -1,0 +1,1638 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Formulaire vente META – Ray-Ban Meta</title>
+
+  <style>
+    :root{
+      --page:#f6f7fb;
+      --card:#ffffff;
+      --card2:#f3f5fb;
+      --text:#111827;
+      --muted:#6b7280;
+      --border:#d7dbe7;
+
+      --shadow: 0 10px 24px rgba(17,24,39,.10);
+      --radius: 16px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:
+        radial-gradient(1100px 600px at 20% -20%, rgba(37,99,235,.10), transparent 60%),
+        radial-gradient(900px 500px at 80% 0%, rgba(22,163,74,.08), transparent 55%),
+        var(--page);
+      color:var(--text);
+    }
+
+    .container{
+      max-width: 1100px;
+      margin: 0 auto 80px;
+      padding: 0 16px;
+    }
+
+    /* ===== HEADER STICKY ===== */
+    header{
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 14px 0 12px;
+      background: rgba(246,247,251,.86);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(215,219,231,.8);
+    }
+
+    .header-inner{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+
+    .title{display:flex;flex-direction:column;gap:6px}
+    h1{margin:0;font-size:22px;letter-spacing:.2px}
+    .subtitle{color:var(--muted);font-size:13px;line-height:1.35}
+
+    .toolbar{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .btn{
+      border:1px solid var(--border);
+      background:#fff;
+      color:var(--text);
+      padding:10px 12px;
+      border-radius: 12px;
+      cursor:pointer;
+      box-shadow: var(--shadow);
+      transition: transform .05s ease, border-color .2s ease, background .2s ease, opacity .2s ease;
+      user-select:none;
+      font-weight:800;
+      font-size:13px;
+      white-space:nowrap;
+    }
+    .btn:hover{border-color: rgba(37,99,235,.45)}
+    .btn:active{transform: translateY(1px)}
+
+    .btn.primary{
+      border-color: rgba(37,99,235,.75);
+      background: linear-gradient(180deg, rgba(37,99,235,.14), rgba(37,99,235,.06));
+      box-shadow: 0 14px 30px rgba(37,99,235,.16);
+      position:relative;
+    }
+    .btn.primary::after{
+      content:"";
+      position:absolute;
+      left:10px; right:10px; bottom:6px;
+      height:3px;
+      border-radius: 999px;
+      background: rgba(37,99,235,.75);
+    }
+
+    .btn.tab:not(.primary){
+      opacity:.78;
+      background:#fff;
+      border-color: rgba(215,219,231,.95);
+      box-shadow: 0 8px 18px rgba(17,24,39,.08);
+    }
+
+    .btn.preview{
+      border-color: rgba(37,99,235,.55);
+      background: linear-gradient(180deg, rgba(37,99,235,.12), rgba(37,99,235,.06));
+    }
+
+    .where{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius: 12px;
+      border:1px solid var(--border);
+      background:#fff;
+      box-shadow: var(--shadow);
+      font-weight:900;
+      font-size:13px;
+    }
+    .where .k{ color: var(--muted); font-weight:800; }
+    .where .v{ max-width:220px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+    .grid{display:grid;gap:14px; padding-top: 14px;}
+
+    .section{
+      border:1px solid var(--border);
+      background: var(--card2);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .section-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 14px;
+      cursor:pointer;
+      user-select:none;
+      gap:12px;
+      background:#fff;
+      border-bottom:1px solid rgba(17,24,39,.06);
+    }
+    .section-header .left{display:flex;flex-direction:column;gap:2px}
+    .section-title{font-size:15px;font-weight:900;letter-spacing:.2px}
+    .section-hint{color:var(--muted);font-size:12px}
+
+    .chev{
+      width:34px;height:34px;
+      display:grid;place-items:center;
+      border-radius: 12px;
+      border:1px solid var(--border);
+      background: rgba(17,24,39,.02);
+      flex:0 0 auto;
+    }
+    .chev span{display:inline-block;transition: transform .2s ease}
+    .section.open .chev span{transform: rotate(180deg)}
+
+    .section-body{display:none;padding:14px}
+    .section.open .section-body{display:block}
+
+    .card{
+      border:1px solid var(--border);
+      background: var(--card);
+      border-radius: 14px;
+      padding:12px;
+    }
+    .card h3{
+      margin:0 0 10px 0;
+      font-size:14px;
+      letter-spacing:.2px;
+    }
+
+    .row{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+    @media (max-width: 760px){
+      .row{grid-template-columns:1fr}
+      .where .v{ max-width: 140px; }
+    }
+
+    label{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      font-size:12px;
+      color:var(--muted);
+    }
+    input[type="text"], input[type="tel"], input[type="email"], input[type="date"], textarea{
+      width:100%;
+      padding:10px 10px;
+      border-radius: 12px;
+      border:1px solid var(--border);
+      background:#fff;
+      color: var(--text);
+      outline:none;
+      transition:border-color .2s ease, box-shadow .2s ease;
+    }
+    textarea{min-height: 70px; resize: vertical;}
+    input:focus, textarea:focus{
+      border-color: rgba(37,99,235,.75);
+      box-shadow: 0 0 0 3px rgba(37,99,235,.15);
+    }
+
+    .yn{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:10px;
+      border:1px solid var(--border);
+      border-radius: 14px;
+      background: #fff;
+    }
+    .yn .label{
+      font-weight:900;
+      font-size:13px;
+      color: var(--text);
+      line-height:1.2;
+    }
+    .yn .controls{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      align-items:center;
+    }
+    .pill{
+      min-width: 64px;
+      padding:8px 10px;
+      border-radius: 999px;
+      border:1px solid var(--border);
+      background:#fff;
+      cursor:pointer;
+      font-weight:900;
+      font-size:12px;
+      color: var(--text);
+      user-select:none;
+      transition: box-shadow .2s ease, border-color .2s ease, background .2s ease;
+    }
+    .pill.active{border-width:2px}
+    .pill.yes.active{
+      border-color: rgba(22,163,74,.95);
+      box-shadow: 0 0 0 3px rgba(22,163,74,.12) inset;
+    }
+    .pill.no.active{
+      border-color: rgba(220,38,38,.95);
+      box-shadow: 0 0 0 3px rgba(220,38,38,.12) inset;
+    }
+    .pill.clear{
+      border-color: rgba(107,114,128,.35);
+      color: var(--muted);
+      font-weight:800;
+    }
+
+    .note{
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.5;
+      margin:0;
+    }
+
+    .photo-block{display:grid;gap:10px}
+    .photo-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .file-btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:8px}
+    .file-btn input[type="file"]{
+      position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;
+    }
+    .dropzone{
+      border:1px dashed rgba(107,114,128,.45);
+      border-radius: 14px;
+      padding:12px;
+      background:#fff;
+      color: var(--muted);
+      font-size:12px;
+      outline:none;
+      transition: box-shadow .2s ease, border-color .2s ease;
+    }
+    .dropzone:focus{
+      border-color: rgba(37,99,235,.75);
+      box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+    }
+
+    .thumbs{display:flex;flex-wrap:wrap;gap:10px}
+    .thumb{
+      width:120px;
+      border-radius: 14px;
+      border:1px solid var(--border);
+      background: #fff;
+      overflow:hidden;
+      position:relative;
+      box-shadow: 0 8px 18px rgba(17,24,39,.08);
+    }
+    .thumb img{width:100%;height:92px;object-fit:cover;display:block}
+    .thumb .meta{
+      padding:8px;
+      font-size:11px;
+      color: var(--muted);
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      align-items:center;
+    }
+    .thumb .remove{
+      position:absolute;top:6px;right:6px;
+      width:26px;height:26px;
+      border-radius:999px;
+      border:1px solid rgba(220,38,38,.70);
+      background: rgba(220,38,38,.18);
+      color:#fff;
+      cursor:pointer;
+      font-weight:900;
+      display:grid;place-items:center;
+      line-height:1;
+    }
+
+    .signature-wrap{display:grid;gap:10px}
+    .sig{
+      border:1px solid rgba(107,114,128,.35);
+      border-radius: 14px;
+      background: #fff;
+      overflow:hidden;
+    }
+    canvas{display:block;width:100%;height:180px;touch-action:none}
+    .sig-actions{display:flex;justify-content:flex-end;gap:10px}
+
+    hr.soft{
+      border:none;
+      border-top:1px solid rgba(17,24,39,.08);
+      margin:14px 0;
+    }
+
+    /* ===== Attestations (cases superposées) ===== */
+    .attestations{
+      display:grid;
+      gap:10px;
+      margin-top:6px;
+    }
+    .attestation-line{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+    }
+    .attestation-line input[type="checkbox"]{
+      margin-top:3px;
+    }
+    .attestation-text{
+      margin:0;
+      color:var(--text);
+      font-weight:800;
+      font-size:13px;
+      line-height:1.25;
+    }
+
+    @page{ size: A4 portrait; margin: 8mm; }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <div class="header-inner">
+        <div class="title">
+          <h1>Formulaire vente META — Ray-Ban Meta</h1>
+          <div class="subtitle">
+            Utilise <b>Aperçu impression</b> pour une mise en page A4 maîtrisée.
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <button class="btn tab primary" id="btnVente" type="button">Vente</button>
+          <button class="btn tab" id="btnMonture" type="button">Vente Monture Client</button>
+          <button class="btn tab" id="btnLivraison" type="button">Livraison</button>
+
+          <div class="where" title="Section actuellement sélectionnée">
+            <span class="k">Section :</span>
+            <span class="v" id="whereText">Vente</span>
+          </div>
+
+          <button class="btn preview" id="btnPreview" type="button">Aperçu impression</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="grid">
+      <!-- ======================= VENTE ======================= -->
+      <section class="section open" id="secVente">
+        <div class="section-header" data-target="secVente">
+          <div class="left">
+            <div class="section-title">Vente</div>
+            <div class="section-hint">Identité + sensibilisation + signature</div>
+          </div>
+          <div class="chev" aria-hidden="true"><span>▾</span></div>
+        </div>
+
+        <div class="section-body">
+          <div class="card">
+            <h3>Informations client</h3>
+            <div class="row">
+              <label>Date <input type="date" name="vente_date" /></label>
+              <label>Modèle <input type="text" name="vente_modele" placeholder="Ex: Ray-Ban Meta Wayfarer…" /></label>
+              <label>Nom <input type="text" name="vente_nom" /></label>
+              <label>Prénom <input type="text" name="vente_prenom" /></label>
+              <label>Téléphone <input type="tel" name="vente_tel" /></label>
+              <label>Mail <input type="email" name="vente_mail" /></label>
+            </div>
+          </div>
+
+          <div style="height:10px"></div>
+
+          <div class="card" data-tests-card>
+            <h3>Choix & sensibilisation</h3>
+            <div style="display:grid; gap:10px;">
+              <div class="yn" data-yn>
+                <div class="label">Mise à la vue</div>
+                <div class="controls">
+                  <input type="hidden" name="vente_mise_a_la_vue" value="" />
+                  <button class="pill yes" type="button">Oui</button>
+                  <button class="pill no" type="button">Non</button>
+                  <button class="pill clear" type="button" data-clear>Effacer</button>
+                </div>
+              </div>
+              <div class="yn" data-yn>
+                <div class="label">Compatibilité smartphone</div>
+                <div class="controls">
+                  <input type="hidden" name="vente_compat_smartphone" value="" />
+                  <button class="pill yes" type="button">Oui</button>
+                  <button class="pill no" type="button">Non</button>
+                  <button class="pill clear" type="button" data-clear>Effacer</button>
+                </div>
+              </div>
+              <div class="yn" data-yn>
+                <div class="label">Mises en garde (conditions d’usage)</div>
+                <div class="controls">
+                  <input type="hidden" name="vente_mises_en_garde" value="" />
+                  <button class="pill yes" type="button">Oui</button>
+                  <button class="pill no" type="button">Non</button>
+                  <button class="pill clear" type="button" data-clear>Effacer</button>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:10px">
+              <div style="font-size:12px; color:var(--muted); font-weight:800; margin-bottom:6px;">Attestation</div>
+
+              <div class="attestations">
+                <div class="attestation-line">
+                  <input type="checkbox" id="vente_attestation_garantie" name="vente_attestation_garantie" />
+                  <label for="vente_attestation_garantie" class="attestation-text">
+					Je déclare avoir pris connaissance du fait que la garantie de mes lunettes connectées est assurée par EssilorLuxottica, et non par mon opticien.
+                  </label>
+                </div>
+
+                <div class="attestation-line">
+                  <input type="checkbox" id="vente_attestation_livret" name="vente_attestation_livret" />
+                  <label for="vente_attestation_livret" class="attestation-text">
+                    Je déclare avoir bien reçu de mon opticien le livret « SAFETY & WARRANTY » fourni par Ray-Ban Meta.
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="height:10px"></div>
+
+          <div class="card signature-wrap">
+            <h3>Signature (Vente)</h3>
+
+            <label>Commentaire
+              <textarea name="vente_signature_commentaire" placeholder="Optionnel"></textarea>
+            </label>
+
+            <label>Date de signature
+              <input type="date" name="vente_signature_date" />
+            </label>
+
+            <div class="sig"><canvas id="sigVente"></canvas></div>
+            <div class="sig-actions">
+              <button class="btn" type="button" data-clear-sig="sigVente">Effacer la signature</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================== VENTE MONTURE CLIENT =================== -->
+      <section class="section" id="secMonture">
+        <div class="section-header" data-target="secMonture">
+          <div class="left">
+            <div class="section-title">Vente Monture Client</div>
+            <div class="section-hint">Tests + photos monture + attestation + signature</div>
+          </div>
+          <div class="chev" aria-hidden="true"><span>▾</span></div>
+        </div>
+
+        <div class="section-body">
+          <div class="card">
+            <h3>Informations</h3>
+            <div class="row">
+              <label>Provenance de la monture <input type="text" name="mc_provenance" placeholder="Ex: monture client…" /></label>
+              <label>Date <input type="date" name="mc_date" /></label>
+              <label>Nom <input type="text" name="mc_nom" /></label>
+              <label>Prénom <input type="text" name="mc_prenom" /></label>
+              <label>Téléphone <input type="tel" name="mc_tel" /></label>
+              <label>Mail <input type="email" name="mc_mail" /></label>
+              <label>Modèle <input type="text" name="mc_modele" /></label>
+            </div>
+          </div>
+
+          <div style="height:10px"></div>
+
+          <div class="card" data-tests-card>
+            <h3>Test des fonctionnalités</h3>
+            <div style="display:grid; gap:10px;">
+              <div class="yn" data-yn>
+                <div class="label">Bouton et pad tactile</div>
+                <div class="controls">
+                  <input type="hidden" name="mc_btn_pad" value="" />
+                  <button class="pill yes" type="button">Oui</button>
+                  <button class="pill no" type="button">Non</button>
+                  <button class="pill clear" type="button" data-clear>Effacer</button>
+                </div>
+              </div>
+              <div class="yn" data-yn>
+                <div class="label">Prise de photos</div>
+                <div class="controls">
+                  <input type="hidden" name="mc_photos" value="" />
+                  <button class="pill yes" type="button">Oui</button>
+                  <button class="pill no" type="button">Non</button>
+                  <button class="pill clear" type="button" data-clear>Effacer</button>
+                </div>
+              </div>
+              <div class="yn" data-yn>
+                <div class="label">Prise de vidéo</div>
+                <div class="controls">
+                  <input type="hidden" name="mc_video" value="" />
+                  <button class="pill yes" type="button">Oui</button>
+                  <button class="pill no" type="button">Non</button>
+                  <button class="pill clear" type="button" data-clear>Effacer</button>
+                </div>
+              </div>
+              <div class="yn" data-yn>
+                <div class="label">Son / musique</div>
+                <div class="controls">
+                  <input type="hidden" name="mc_son" value="" />
+                  <button class="pill yes" type="button">Oui</button>
+                  <button class="pill no" type="button">Non</button>
+                  <button class="pill clear" type="button" data-clear>Effacer</button>
+                </div>
+              </div>
+              <div class="yn" data-yn>
+                <div class="label">IA & traduction</div>
+                <div class="controls">
+                  <input type="hidden" name="mc_ia" value="" />
+                  <button class="pill yes" type="button">Oui</button>
+                  <button class="pill no" type="button">Non</button>
+                  <button class="pill clear" type="button" data-clear>Effacer</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="height:10px"></div>
+
+          <div class="card">
+            <h3>Photos de la monture client</h3>
+            <p class="note">Clique dans la zone “Dépose / colle / ajoute”, puis <b>Ctrl+V</b> pour coller une image.</p>
+            <div style="height:10px"></div>
+
+            <!-- ====== 6 BLOCS PHOTOS ====== -->
+            <!-- 1 -->
+            <div class="photo-block" data-photo-block data-title="Branche intérieur gauche">
+              <h4 style="margin:0;font-size:13px;">Branche intérieur gauche</h4>
+              <div class="yn" data-yn>
+                <div class="label">Conforme</div>
+                <div class="controls">
+                  <input type="hidden" name="mc_bi_g_conforme" value="" />
+                  <button class="pill yes" type="button">Oui</button>
+                  <button class="pill no" type="button">Non</button>
+                  <button class="pill clear" type="button" data-clear>Effacer</button>
+                </div>
+              </div>
+              <label>Commentaire <textarea name="mc_bi_g_commentaire" placeholder="Optionnel"></textarea></label>
+              <div class="photo-actions">
+                <button class="btn file-btn" type="button">Ajouter des photos
+                  <input type="file" accept="image/*" capture="environment" multiple data-photo-input />
+                </button>
+                <div class="note">Caméra / galerie / Ctrl+V</div>
+              </div>
+              <div class="dropzone" tabindex="0" data-dropzone>Dépose / colle / ajoute.</div>
+              <div class="thumbs" data-thumbs></div>
+            </div>
+
+            <hr class="soft" />
+
+            <!-- 2 -->
+            <div class="photo-block" data-photo-block data-title="Branche intérieur droite">
+              <h4 style="margin:0;font-size:13px;">Branche intérieur droite</h4>
+              <div class="yn" data-yn>
+                <div class="label">Conforme</div>
+                <div class="controls">
+                  <input type="hidden" name="mc_bi_d_conforme" value="" />
+                  <button class="pill yes" type="button">Oui</button>
+                  <button class="pill no" type="button">Non</button>
+                  <button class="pill clear" type="button" data-clear>Effacer</button>
+                </div>
+              </div>
+              <label>Commentaire <textarea name="mc_bi_d_commentaire" placeholder="Optionnel"></textarea></label>
+              <div class="photo-actions">
+                <button class="btn file-btn" type="button">Ajouter des photos
+                  <input type="file" accept="image/*" capture="environment" multiple data-photo-input />
+                </button>
+                <div class="note">Caméra / galerie / Ctrl+V</div>
+              </div>
+              <div class="dropzone" tabindex="0" data-dropzone>Dépose / colle / ajoute.</div>
+              <div class="thumbs" data-thumbs></div>
+            </div>
+
+            <hr class="soft" />
+
+            <!-- 3 -->
+            <div class="photo-block" data-photo-block data-title="Face intérieur">
+              <h4 style="margin:0;font-size:13px;">Face intérieur</h4>
+              <div class="yn" data-yn>
+                <div class="label">Conforme</div>
+                <div class="controls">
+                  <input type="hidden" name="mc_fi_conforme" value="" />
+                  <button class="pill yes" type="button">Oui</button>
+                  <button class="pill no" type="button">Non</button>
+                  <button class="pill clear" type="button" data-clear>Effacer</button>
+                </div>
+              </div>
+              <label>Commentaire <textarea name="mc_fi_commentaire" placeholder="Optionnel"></textarea></label>
+              <div class="photo-actions">
+                <button class="btn file-btn" type="button">Ajouter des photos
+                  <input type="file" accept="image/*" capture="environment" multiple data-photo-input />
+                </button>
+                <div class="note">Caméra / galerie / Ctrl+V</div>
+              </div>
+              <div class="dropzone" tabindex="0" data-dropzone>Dépose / colle / ajoute.</div>
+              <div class="thumbs" data-thumbs></div>
+            </div>
+
+            <hr class="soft" />
+
+            <!-- 4 -->
+            <div class="photo-block" data-photo-block data-title="Face extérieur">
+              <h4 style="margin:0;font-size:13px;">Face extérieur</h4>
+              <div class="yn" data-yn>
+                <div class="label">Conforme</div>
+                <div class="controls">
+                  <input type="hidden" name="mc_fe_conforme" value="" />
+                  <button class="pill yes" type="button">Oui</button>
+                  <button class="pill no" type="button">Non</button>
+                  <button class="pill clear" type="button" data-clear>Effacer</button>
+                </div>
+              </div>
+              <label>Commentaire <textarea name="mc_fe_commentaire" placeholder="Optionnel"></textarea></label>
+              <div class="photo-actions">
+                <button class="btn file-btn" type="button">Ajouter des photos
+                  <input type="file" accept="image/*" capture="environment" multiple data-photo-input />
+                </button>
+                <div class="note">Caméra / galerie / Ctrl+V</div>
+              </div>
+              <div class="dropzone" tabindex="0" data-dropzone>Dépose / colle / ajoute.</div>
+              <div class="thumbs" data-thumbs></div>
+            </div>
+
+            <hr class="soft" />
+
+            <!-- 5 -->
+            <div class="photo-block" data-photo-block data-title="Branche extérieur gauche">
+              <h4 style="margin:0;font-size:13px;">Branche extérieur gauche</h4>
+              <div class="yn" data-yn>
+                <div class="label">Conforme</div>
+                <div class="controls">
+                  <input type="hidden" name="mc_be_g_conforme" value="" />
+                  <button class="pill yes" type="button">Oui</button>
+                  <button class="pill no" type="button">Non</button>
+                  <button class="pill clear" type="button" data-clear>Effacer</button>
+                </div>
+              </div>
+              <label>Commentaire <textarea name="mc_be_g_commentaire" placeholder="Optionnel"></textarea></label>
+              <div class="photo-actions">
+                <button class="btn file-btn" type="button">Ajouter des photos
+                  <input type="file" accept="image/*" capture="environment" multiple data-photo-input />
+                </button>
+                <div class="note">Caméra / galerie / Ctrl+V</div>
+              </div>
+              <div class="dropzone" tabindex="0" data-dropzone>Dépose / colle / ajoute.</div>
+              <div class="thumbs" data-thumbs></div>
+            </div>
+
+            <hr class="soft" />
+
+            <!-- 6 -->
+            <div class="photo-block" data-photo-block data-title="Branche extérieur droite">
+              <h4 style="margin:0;font-size:13px;">Branche extérieur droite</h4>
+              <div class="yn" data-yn>
+                <div class="label">Conforme</div>
+                <div class="controls">
+                  <input type="hidden" name="mc_be_d_conforme" value="" />
+                  <button class="pill yes" type="button">Oui</button>
+                  <button class="pill no" type="button">Non</button>
+                  <button class="pill clear" type="button" data-clear>Effacer</button>
+                </div>
+              </div>
+              <label>Commentaire <textarea name="mc_be_d_commentaire" placeholder="Optionnel"></textarea></label>
+              <div class="photo-actions">
+                <button class="btn file-btn" type="button">Ajouter des photos
+                  <input type="file" accept="image/*" capture="environment" multiple data-photo-input />
+                </button>
+                <div class="note">Caméra / galerie / Ctrl+V</div>
+              </div>
+              <div class="dropzone" tabindex="0" data-dropzone>Dépose / colle / ajoute.</div>
+              <div class="thumbs" data-thumbs></div>
+            </div>
+
+            <div style="height:10px"></div>
+
+            <div style="font-size:12px; color:var(--muted); font-weight:800; margin-bottom:6px;">Attestation</div>
+            <div class="attestation-line">
+              <input type="checkbox" id="mc_attestation_conforme" name="mc_attestation_conforme" />
+              <label for="mc_attestation_conforme" class="attestation-text">
+                J’atteste que la monture est conforme au descriptif et déclare être en accord avec le document DÉCHARGE DE RESPONSABILITÉ qui m'est fourni avec cet état des lieux.
+              </label>
+            </div>
+          </div>
+
+          <div style="height:10px"></div>
+
+          <div class="card signature-wrap">
+            <h3>Signature (Vente Monture Client)</h3>
+
+            <label>Commentaire
+              <textarea name="mc_signature_commentaire" placeholder="Optionnel"></textarea>
+            </label>
+
+            <label>Date de signature
+              <input type="date" name="mc_signature_date" />
+            </label>
+
+            <div class="sig"><canvas id="sigMonture"></canvas></div>
+            <div class="sig-actions">
+              <button class="btn" type="button" data-clear-sig="sigMonture">Effacer la signature</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================= LIVRAISON ======================= -->
+      <section class="section" id="secLivraison">
+        <div class="section-header" data-target="secLivraison">
+          <div class="left">
+            <div class="section-title">Livraison</div>
+            <div class="section-hint">Signature</div>
+          </div>
+          <div class="chev" aria-hidden="true"><span>▾</span></div>
+        </div>
+
+        <div class="section-body">
+          <div class="card">
+            <h3>Informations</h3>
+            <div class="row">
+              <label>Date <input type="date" name="liv_date" /></label>
+              <label>Modèle <input type="text" name="liv_modele" /></label>
+              <label>Nom <input type="text" name="liv_nom" /></label>
+              <label>Prénom <input type="text" name="liv_prenom" /></label>
+              <label>Téléphone <input type="tel" name="liv_tel" /></label>
+              <label>Mail <input type="email" name="liv_mail" /></label>
+            </div>
+          </div>
+
+          <div style="height:10px"></div>
+
+          <div class="card signature-wrap">
+            <h3>Signature (Livraison)</h3>
+
+            <label>Commentaire
+              <textarea name="liv_signature_commentaire" placeholder="Optionnel"></textarea>
+            </label>
+
+            <label>Date de signature
+              <input type="date" name="liv_signature_date" />
+            </label>
+
+            <div style="margin-top:2px; font-size:12px; color:var(--muted); font-weight:800;">Réception</div>
+            <div class="attestation-line">
+              <input type="checkbox" id="liv_reception_conforme" name="liv_reception_conforme" />
+              <label for="liv_reception_conforme" class="attestation-text">
+                Je reconnais que l'état de l'équipement qui m'est livré ce jour par l'opticien est totalement conforme à l'état initial dans lequel je lui avait confié.
+              </label>
+            </div>
+
+            <div class="sig"><canvas id="sigLivraison"></canvas></div>
+            <div class="sig-actions">
+              <button class="btn" type="button" data-clear-sig="sigLivraison">Effacer la signature</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+<script>
+  // ================== Onglets : un seul ouvert ==================
+  const secVente = document.getElementById('secVente');
+  const secMonture = document.getElementById('secMonture');
+  const secLivraison = document.getElementById('secLivraison');
+
+  const btnVente = document.getElementById('btnVente');
+  const btnMonture = document.getElementById('btnMonture');
+  const btnLivraison = document.getElementById('btnLivraison');
+
+  const btnPreview = document.getElementById('btnPreview');
+  const whereText = document.getElementById('whereText');
+
+  function setActiveButton(active){
+    [btnVente, btnMonture, btnLivraison].forEach(b => b.classList.remove('primary'));
+    active.classList.add('primary');
+  }
+
+  function updateWhere(sectionEl){
+    const t = sectionEl?.querySelector('.section-title');
+    whereText.textContent = t ? t.textContent.trim() : '';
+  }
+
+  function openOnly(sectionEl){
+    [secVente, secMonture, secLivraison].forEach(s => s.classList.remove('open'));
+    sectionEl.classList.add('open');
+    updateWhere(sectionEl);
+    sectionEl.scrollIntoView({behavior:'smooth', block:'start'});
+    requestAnimationFrame(() => resizeSignaturesIn(sectionEl));
+  }
+
+  btnVente.addEventListener('click', () => { setActiveButton(btnVente); openOnly(secVente); });
+  btnMonture.addEventListener('click', () => { setActiveButton(btnMonture); openOnly(secMonture); });
+  btnLivraison.addEventListener('click', () => { setActiveButton(btnLivraison); openOnly(secLivraison); });
+
+  document.querySelectorAll('.section-header').forEach(h => {
+    h.addEventListener('click', () => {
+      const id = h.getAttribute('data-target');
+      const el = document.getElementById(id);
+      const currentlyOpen = el.classList.contains('open');
+      [secVente, secMonture, secLivraison].forEach(s => s.classList.remove('open'));
+      if(!currentlyOpen){
+        el.classList.add('open');
+        updateWhere(el);
+        requestAnimationFrame(() => resizeSignaturesIn(el));
+      }
+    });
+  });
+
+  updateWhere(secVente);
+
+  // ================== Oui/Non ==================
+  function refreshPills(groupEl, value){
+    const yesBtn = groupEl.querySelector('.pill.yes');
+    const noBtn = groupEl.querySelector('.pill.no');
+    if(yesBtn) yesBtn.classList.toggle('active', value === 'Oui');
+    if(noBtn) noBtn.classList.toggle('active', value === 'Non');
+  }
+
+  document.querySelectorAll('[data-yn]').forEach(group => {
+    const hidden = group.querySelector('input[type="hidden"]');
+    const yesBtn = group.querySelector('.pill.yes');
+    const noBtn = group.querySelector('.pill.no');
+    const clearBtn = group.querySelector('[data-clear]');
+
+    function setValue(v){
+      if(hidden) hidden.value = v;
+      refreshPills(group, v);
+    }
+
+    refreshPills(group, hidden ? hidden.value : "");
+    if(yesBtn) yesBtn.addEventListener('click', () => setValue('Oui'));
+    if(noBtn) noBtn.addEventListener('click', () => setValue('Non'));
+    if(clearBtn) clearBtn.addEventListener('click', () => setValue(''));
+  });
+
+  // ================== Photos : fichier / drop / Ctrl+V ==================
+  let lastFocusedDropzone = null;
+
+  function addFilesToThumbs(files, thumbsEl){
+    [...files].forEach(file => {
+      if(!file.type || !file.type.startsWith('image/')) return;
+      const url = URL.createObjectURL(file);
+
+      const wrap = document.createElement('div');
+      wrap.className = 'thumb';
+
+      const img = document.createElement('img');
+      img.src = url;
+      img.alt = file.name || 'photo';
+
+      const rm = document.createElement('button');
+      rm.className = 'remove';
+      rm.type = 'button';
+      rm.textContent = '×';
+      rm.title = 'Supprimer';
+      rm.addEventListener('click', () => {
+        URL.revokeObjectURL(url);
+        wrap.remove();
+      });
+
+      const meta = document.createElement('div');
+      meta.className = 'meta';
+      const left = document.createElement('span');
+      left.textContent = 'Image';
+      const right = document.createElement('span');
+      right.textContent = Math.round(file.size/1024) + ' Ko';
+      meta.append(left, right);
+
+      wrap.append(img, rm, meta);
+      thumbsEl.appendChild(wrap);
+    });
+  }
+
+  document.querySelectorAll('[data-photo-input]').forEach(input => {
+    input.addEventListener('change', (e) => {
+      const block = e.target.closest('[data-photo-block]');
+      const thumbs = block.querySelector('[data-thumbs]');
+      addFilesToThumbs(e.target.files, thumbs);
+      e.target.value = '';
+    });
+  });
+
+  document.querySelectorAll('[data-dropzone]').forEach(dz => {
+    dz.addEventListener('focus', () => lastFocusedDropzone = dz);
+    dz.addEventListener('click', () => { dz.focus(); lastFocusedDropzone = dz; });
+
+    dz.addEventListener('dragover', (e) => { e.preventDefault(); dz.style.borderColor = 'rgba(37,99,235,.75)'; });
+    dz.addEventListener('dragleave', () => { dz.style.borderColor = ''; });
+    dz.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dz.style.borderColor = '';
+      const block = dz.closest('[data-photo-block]');
+      const thumbs = block.querySelector('[data-thumbs]');
+      if(e.dataTransfer?.files?.length) addFilesToThumbs(e.dataTransfer.files, thumbs);
+    });
+  });
+
+  document.addEventListener('paste', async (e) => {
+    const dz = lastFocusedDropzone;
+    if(!dz) return;
+
+    const block = dz.closest('[data-photo-block]');
+    const thumbs = block.querySelector('[data-thumbs]');
+
+    const items = e.clipboardData?.items ? [...e.clipboardData.items] : [];
+    const imgItem = items.find(it => it.type && it.type.startsWith('image/'));
+    if(imgItem){
+      const file = imgItem.getAsFile();
+      if(file) addFilesToThumbs([file], thumbs);
+      return;
+    }
+
+    if(navigator.clipboard && window.ClipboardItem){
+      try{
+        const clipboardItems = await navigator.clipboard.read();
+        for(const ci of clipboardItems){
+          for(const type of ci.types){
+            if(type.startsWith('image/')){
+              const blob = await ci.getType(type);
+              const file = new File([blob], 'presse-papier.png', {type});
+              addFilesToThumbs([file], thumbs);
+              return;
+            }
+          }
+        }
+      }catch(_){}
+    }
+  });
+
+  // ================== Signatures (canvas) : FIX décalage ==================
+  const signatureRegistry = new Map();
+
+  function createSignature(canvasId){
+    const canvas = document.getElementById(canvasId);
+    if(!canvas) return null;
+
+    const ctx = canvas.getContext('2d', { willReadFrequently: false });
+
+    let drawing = false;
+    let last = null;
+    let dpr = 1;
+
+    function setStyle(){
+      ctx.lineWidth = 2 * dpr;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.strokeStyle = '#111827';
+    }
+
+    function resize(){
+      const rect = canvas.getBoundingClientRect();
+      if(rect.width < 5 || rect.height < 5) return;
+
+      dpr = window.devicePixelRatio || 1;
+
+      const old = document.createElement('canvas');
+      old.width = canvas.width;
+      old.height = canvas.height;
+      old.getContext('2d').drawImage(canvas, 0, 0);
+
+      canvas.width  = Math.round(rect.width  * dpr);
+      canvas.height = Math.round(rect.height * dpr);
+
+      ctx.setTransform(1,0,0,1,0,0);
+      setStyle();
+
+      if(old.width && old.height){
+        ctx.drawImage(old, 0, 0, old.width, old.height, 0, 0, canvas.width, canvas.height);
+      }
+    }
+
+    function getPos(e){
+      const r = canvas.getBoundingClientRect();
+      const x = (e.clientX - r.left) * (canvas.width / r.width);
+      const y = (e.clientY - r.top)  * (canvas.height / r.height);
+      return { x, y };
+    }
+
+    function start(e){ drawing = true; last = getPos(e); }
+    function move(e){
+      if(!drawing) return;
+      const p = getPos(e);
+      ctx.beginPath();
+      ctx.moveTo(last.x, last.y);
+      ctx.lineTo(p.x, p.y);
+      ctx.stroke();
+      last = p;
+    }
+    function end(){ drawing = false; last = null; }
+
+    canvas.addEventListener('pointerdown', (e) => { canvas.setPointerCapture(e.pointerId); start(e); });
+    canvas.addEventListener('pointermove', move);
+    canvas.addEventListener('pointerup', end);
+    canvas.addEventListener('pointercancel', end);
+
+    window.addEventListener('resize', resize);
+    resize();
+
+    return {
+      resize,
+      clear(){ ctx.clearRect(0, 0, canvas.width, canvas.height); },
+      toDataURL(){ try { return canvas.toDataURL('image/png'); } catch(_) { return ''; } }
+    };
+  }
+
+  const sigVente = createSignature('sigVente');
+  const sigMonture = createSignature('sigMonture');
+  const sigLivraison = createSignature('sigLivraison');
+
+  if(sigVente) signatureRegistry.set('sigVente', sigVente);
+  if(sigMonture) signatureRegistry.set('sigMonture', sigMonture);
+  if(sigLivraison) signatureRegistry.set('sigLivraison', sigLivraison);
+
+  document.querySelectorAll('[data-clear-sig]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-clear-sig');
+      const ctrl = signatureRegistry.get(id);
+      if(ctrl) ctrl.clear();
+    });
+  });
+
+  function resizeSignaturesIn(sectionEl){
+    sectionEl.querySelectorAll('canvas[id]').forEach(c => {
+      const ctrl = signatureRegistry.get(c.id);
+      if(ctrl) ctrl.resize();
+    });
+  }
+  requestAnimationFrame(() => resizeSignaturesIn(secVente));
+
+  // ================== Optionnel : pré-remplir date de signature avec aujourd'hui ==================
+  (function setTodayForSignatureDates(){
+    const today = new Date().toISOString().slice(0,10);
+    ['vente_signature_date','mc_signature_date','liv_signature_date'].forEach(name => {
+      const el = document.querySelector(`input[name="${name}"]`);
+      if(el && !el.value) el.value = today;
+    });
+  })();
+
+  // ================== Aperçu impression ==================
+  function escHtml(s){
+    return String(s ?? '')
+      .replaceAll('&','&amp;')
+      .replaceAll('<','&lt;')
+      .replaceAll('>','&gt;')
+      .replaceAll('"','&quot;')
+      .replaceAll("'","&#039;");
+  }
+  function fmt(v){
+    const t = String(v ?? '').trim();
+    return t ? t : '—';
+  }
+  function getOpenSection(){ return document.querySelector('.section.open'); }
+  function getSectionTitle(sectionEl){
+    const t = sectionEl?.querySelector('.section-title');
+    return t ? t.textContent.trim() : '';
+  }
+
+  function prettifyLabel(name){
+    return name
+      .replace(/^(mc_|vente_|liv_)/i, '')
+      .replace(/_/g, ' ')
+      .toUpperCase();
+  }
+
+  // ✅ "Informations" = tout sauf commentaires + cases + date de signature
+  function collectFields(sectionEl){
+    const fields = [];
+    sectionEl.querySelectorAll('input[name], textarea[name]').forEach(el => {
+      if (/_commentaire$/i.test(el.name)) return;
+      if (/signature_date$/i.test(el.name)) return;
+
+      if (el.type === 'hidden') return;
+      if (el.type === 'checkbox') return;
+
+      fields.push({
+        label: prettifyLabel(el.name),
+        value: fmt(el.value)
+      });
+    });
+    return fields;
+  }
+
+  function collectTests(sectionEl){
+    const card = sectionEl.querySelector('[data-tests-card]');
+    if(!card) return [];
+    const items = [];
+    card.querySelectorAll('.yn[data-yn]').forEach(yn => {
+      const labelEl = yn.querySelector('.label');
+      const hidden = yn.querySelector('input[type="hidden"][name]');
+      const label = labelEl ? labelEl.textContent.trim() : 'Test';
+      const val = hidden ? String(hidden.value || '').trim() : '';
+      items.push({ label, value: val });
+    });
+    return items;
+  }
+
+  function collectPhotos(sectionEl){
+    const blocks = [];
+    sectionEl.querySelectorAll('[data-photo-block]').forEach(block => {
+      const title = block.getAttribute('data-title') || 'Photo';
+      const hiddenConforme = block.querySelector('input[type="hidden"][name$="_conforme"]');
+      const conformeVal = hiddenConforme ? String(hiddenConforme.value || '').trim() : '';
+      const status =
+        conformeVal === 'Oui' ? 'Conforme' :
+        conformeVal === 'Non' ? 'Non conforme' : '—';
+
+      const commentTa = block.querySelector('textarea[name$="_commentaire"]');
+      const comment = commentTa ? String(commentTa.value || '').trim() : '';
+
+      const images = [...block.querySelectorAll('[data-thumbs] img')].map(img => img.src).filter(Boolean);
+      blocks.push({ title, status, conformeVal, comment, images });
+    });
+    return blocks;
+  }
+
+  function collectSignature(sectionEl){
+    const canvas = sectionEl.querySelector('canvas[id]');
+    if(!canvas) return '';
+    const ctrl = signatureRegistry.get(canvas.id);
+    return ctrl ? (ctrl.toDataURL() || '') : '';
+  }
+
+  function collectSignatureComment(sectionEl){
+    const ta = sectionEl.querySelector('textarea[name$="signature_commentaire"]');
+    return ta ? String(ta.value || '').trim() : '';
+  }
+
+  function collectSignatureDate(sectionEl){
+    const d = sectionEl.querySelector('input[type="date"][name$="signature_date"]');
+    return d ? String(d.value || '').trim() : '';
+  }
+
+  function collectCheckboxes(sectionEl){
+    const out = [];
+    sectionEl.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+      let labelTxt = cb.name || cb.id || 'Attestation';
+      const lab = sectionEl.querySelector(`label[for="${CSS.escape(cb.id)}"]`);
+      if(lab) labelTxt = lab.textContent.trim();
+      out.push({ label: labelTxt, checked: !!cb.checked });
+    });
+    return out;
+  }
+
+  function buildPreviewHTML(payload){
+    const {
+      sectionName, titleMain, fields, tests, photos,
+      signatureDataURL, signatureComment, signatureDate, checkboxes
+    } = payload;
+
+    const isMonture = sectionName.toLowerCase().includes('monture');
+
+    // ✅ CGV : modifie uniquement ce bloc (la CGV n’apparaît QUE dans l’aperçu / impression)
+    const CGV_TITLE = "DÉCHARGE DE RESPONSABILITÉ";
+    const CGV_HTML = `
+      
+      <p>Article 1 — Objet et caractère exceptionnel de l’intervention
+La présente décharge a pour objet d’encadrer les conditions dans lesquelles l’Opticien accepte, à titre strictement exceptionnel et sans que cela ne constitue une quelconque obligation future, de procéder au montage de verres correcteurs sur une monture connectée de type Meta ou assimilée, fournie directement par le Client et non acquise auprès de l’Opticien.
+L’Opticien se réserve le droit de refuser toute intervention sans avoir à en justifier les motifs.
+</p>
+      <p>Article 2 — Déclarations relatives à la monture
+Le Client déclare et garantit que la monture remise :
+1.	lui appartient en pleine propriété et n’est grevée d’aucune sûreté ou réserve de propriété,
+2.	est remise en bon état apparent,
+3.	n’a subi aucune modification, intervention, réparation ou manipulation non conforme aux préconisations du fabricant,
+4.	ne présente aucun vice, défaut ou fragilité susceptible d’être aggravé par l’intervention demandée.
+Le Client reconnaît en outre que cet état des lieux n’est pas un diagnostic technique, électronique ou structurel de la monture, car l’opticien n’est pas en mesure d’en vérifier l’intégrité interne.
+</p>
+      
+	  <p>Article 3 — Nature sensible des montures connectées
+Le Client reconnaît expressément que les montures connectées intègrent des composants électroniques sensibles, tels que notamment : caméras, microphones, batteries, capteurs, circuits imprimés, connectiques, modules logiques, systèmes d’étanchéité et tout autre élément embarqué.
+Le Client reconnaît également que l’intervention sollicitée peut impliquer :
+•	des contraintes mécaniques,
+•	des manipulations de pression,
+•	des variations thermiques,
+•	des ajustements structurels,
+•	le démontage partiel de la monture,
+susceptibles d’altérer, directement ou indirectement, les composants électroniques, mécaniques ou esthétiques de la monture.
+
+</p>
+	  <p>Article 4 — Absence de garantie et incompatibilité éventuelle
+Le Client est informé que l’Opticien ne peut garantir :
+•	la compatibilité technique entre la monture connectée et les verres correcteurs choisis,
+•	le maintien de l’étanchéité, de la fonctionnalité ou des performances des composants électroniques,
+•	la possibilité d’un montage conforme aux standards habituels de l’optique traditionnelle.
+Toute gêne visuelle, perte de confort, limitation d’ajustage, ou impossibilité technique de montage ne pourra engager la responsabilité de l’Opticien.
+</p>
+	  <p>Article 5 — Limitation et exclusion de responsabilité
+Le Client accepte expressément que l’Opticien ne pourra être tenu responsable, sur quelque fondement que ce soit (contractuel, délictuel, quasi délictuel ou autre), de tout dommage :
+•	casse ou fissuration de la monture,
+•	détérioration esthétique,
+•	perte d’étanchéité,
+•	altération mécanique ou structurelle,
+•	dysfonctionnement électronique total ou partiel,
+•	perte de données, altération logicielle ou défaillance de capteurs,
+•	perte de performance ou impossibilité de recharge,
+intervenu pendant ou après l’intervention.
+Aucun dédommagement, remboursement, remplacement, réparation ou compensation financière n’est exigible à ce titre.
+L’intervention demeure soumise à une obligation de moyens, et non à une obligation de résultat.
+</p>
+	  <p>Article 6 — Atteinte aux garanties constructeur
+Le Client reconnaît avoir été informé que toute intervention effectuée par un professionnel non agréé par le fabricant est susceptible d’entraîner la perte totale ou partielle de la garantie constructeur et/ou des garanties commerciales associées.
+La responsabilité de l’Opticien ne pourra en aucun cas être engagée au titre de cette perte de garantie.
+</p>
+	  <p>Article 7 — Données personnelles et confidentialité
+La monture connectée peut contenir des données personnelles du Client (images, sons, historiques, paramètres, connexions).
+L’Opticien décline toute responsabilité en cas d’accès involontaire, de perte, d’effacement ou de dégradation de données personnelles éventuellement présentes dans la monture remise.
+</p>
+	  <p>Article 8 — Renonciation expresse à recours
+Le Client renonce expressément et irrévocablement à toute action, réclamation ou recours, de quelque nature que ce soit, à l’encontre :
+•	de l’Opticien (personne physique et morale),
+•	de ses dirigeants,
+•	de ses salariés,
+•	de l’enseigne ATOL,
+•	de ses partenaires,
+•	et de ses assureurs,
+au titre des dommages ou dysfonctionnements affectant la monture connectée.
+Cette renonciation s’étend notamment aux actions subrogatoires d’assureurs ou aux réclamations du fabricant.
+</p>
+      <p>Article 9 — Acceptation éclairée
+Le Client reconnaît :
+•	avoir reçu une information claire, loyale et appropriée sur les risques inhérents à l’intervention,
+•	avoir compris l’ensemble des conséquences juridiques de la présente décharge,
+•	accepter la réalisation de l’intervention à ses risques exclusifs,
+•	signer la présente décharge en parfaite connaissance de cause.
+</p>
+    `;
+
+    const css = `
+      @page{ size:A4 portrait; margin:8mm; }
+      html,body{ margin:0; padding:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; color:#000; }
+      *{ box-sizing:border-box; }
+      .topbar{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:10px;
+        padding:10px 12px;
+        border-bottom:1px solid #ddd;
+        position:sticky;
+        top:0;
+        background:#fff;
+      }
+      .btn{
+        border:1px solid #bbb;
+        background:#fff;
+        padding:8px 10px;
+        border-radius:10px;
+        cursor:pointer;
+        font-weight:800;
+        font-size:12px;
+      }
+      .printHeader{
+        border:1px solid #cfcfcf;
+        border-radius:10px;
+        padding:8px 10px;
+        margin:0 0 8px 0;
+        text-align:center;
+      }
+      .printHeader .t{ font-size:14px; font-weight:900; letter-spacing:.2px; line-height:1.1; }
+      .printHeader .s{ font-size:10px; font-weight:800; color:#444; line-height:1.1; margin-top:2px; }
+
+      .card{
+        border:1px solid #cfcfcf;
+        border-radius:10px;
+        padding:8px;
+        margin:0 0 8px 0;
+        break-inside:avoid;
+      }
+      .card h3{ margin:0 0 6px 0; font-size:12px; letter-spacing:.2px; }
+
+      .grid{
+        display:grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap:6px;
+      }
+      .field{
+        border:1px solid #cfcfcf;
+        border-radius:8px;
+        padding:6px 7px;
+        min-height:34px;
+      }
+      .k{ font-size:9px; color:#444; text-transform:uppercase; letter-spacing:.35px; line-height:1.1; }
+      .v{ font-size:11px; font-weight:700; margin-top:2px; line-height:1.15; word-break:break-word; }
+
+      .testList{ display:grid; gap:8px; }
+      .testRow{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:10px;
+        padding:10px;
+        border:1px solid #cfcfcf;
+        border-radius:12px;
+      }
+      .testRow .label{ font-weight:900; font-size:12px; }
+      .pill{
+        min-width: 58px;
+        text-align:center;
+        padding:6px 10px;
+        border-radius:999px;
+        border:2px solid #bdbdbd;
+        font-weight:900;
+        font-size:11px;
+      }
+      .pill.ok{ border-color:#1f7a3a; }
+      .pill.bad{ border-color:#9e1f1f; }
+      .pill.na{ border-color:#bdbdbd; color:#333; }
+
+      .photoBlock{
+        border:1px solid #cfcfcf;
+        border-radius:10px;
+        padding:7px;
+        margin-top:6px;
+        break-inside:avoid;
+      }
+      .photoTitle{
+        display:flex;
+        justify-content:space-between;
+        align-items:baseline;
+        gap:8px;
+        font-size:11px;
+        font-weight:900;
+      }
+      .status.ok{ color:#0b5; }
+      .status.bad{ color:#c00; }
+      .status.na{ color:#444; }
+
+      .photoGrid{
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        gap:6px;
+        margin-top:6px;
+      }
+      .photoGrid img{
+        width:100%;
+        height:110px;
+        object-fit:contain;
+        object-position:center;
+        border-radius:8px;
+        border:1px solid #cfcfcf;
+        background:#fff;
+      }
+
+      .comment{
+        border-left:3px solid #cfcfcf;
+        padding-left:8px;
+        margin-top:6px;
+        font-size:10.5px;
+        line-height:1.25;
+      }
+
+      .checks{ display:grid; gap:6px; font-size:11px; }
+      .checkLine{ display:flex; gap:8px; align-items:flex-start; }
+      .box{ width:14px; flex:0 0 14px; font-weight:900; font-size:13px; line-height:1; margin-top:1px; }
+
+      .sigInline{
+        margin-top:8px;
+        border:1px solid #cfcfcf;
+        border-radius:10px;
+        padding:7px;
+      }
+      .sigInline .k{ margin-bottom:4px; }
+      .sigInline img{
+        width:100%;
+        height:60px;
+        object-fit:contain;
+        display:block;
+      }
+
+      .pageBreak{ height:1px; }
+
+      /* ===== Page CGV ===== */
+      .cgvPage{
+        border:1px solid #cfcfcf;
+        border-radius:10px;
+        padding:12px;
+        break-inside:avoid;
+      }
+      .cgvPage h2{
+        margin:0 0 10px 0;
+        font-size:14px;
+        font-weight:900;
+        letter-spacing:.2px;
+      }
+      .cgvBody{
+        font-size:11px;
+        line-height:1.35;
+      }
+      .cgvBody p{ margin:0 0 10px 0; }
+      .cgvBody ul{ margin:0 0 10px 18px; padding:0; }
+
+      @media print{
+        .topbar{ display:none !important; }
+        .pageBreak{ break-before: page; }
+      }
+    `;
+
+    const fieldsHtml = fields.map(f => `
+      <div class="field">
+        <div class="k">${escHtml(f.label)}</div>
+        <div class="v">${escHtml(f.value)}</div>
+      </div>
+    `).join('');
+
+    const testsHtml = tests.length ? `
+      <div class="card">
+        <h3>${isMonture ? 'Test des fonctionnalités' : 'Choix & sensibilisation'}</h3>
+        <div class="testList">
+          ${tests.map(t => {
+            const v = String(t.value || '').trim();
+            const cls = v === 'Oui' ? 'ok' : v === 'Non' ? 'bad' : 'na';
+            const txt = v === 'Oui' ? 'Oui' : v === 'Non' ? 'Non' : '—';
+            return `
+              <div class="testRow">
+                <div class="label">${escHtml(t.label)}</div>
+                <div class="pill ${cls}">${escHtml(txt)}</div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    ` : '';
+
+    const checksHtml = checkboxes.length ? `
+      <div class="card">
+        <h3>Attestations</h3>
+        <div class="checks">
+          ${checkboxes.map(c => `
+            <div class="checkLine">
+              <div class="box">${c.checked ? '☑' : '☐'}</div>
+              <div><b>${escHtml(c.label)}</b></div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    ` : '';
+
+    const pageBreakBeforePhotos = isMonture ? `<div class="pageBreak"></div>` : ``;
+
+    const photosHtml = photos.length ? `
+      ${pageBreakBeforePhotos}
+      <div class="card">
+        <h3>Photos</h3>
+        ${photos.map(p => {
+          const cls = p.conformeVal === 'Oui' ? 'ok' : p.conformeVal === 'Non' ? 'bad' : 'na';
+          const imgs = (p.images || []).slice(0, 12).map(src => `<img src="${escHtml(src)}" alt="photo">`).join('');
+          return `
+            <div class="photoBlock">
+              <div class="photoTitle">
+                <span>${escHtml(p.title)}</span>
+                <span class="status ${cls}">${escHtml(p.status)}</span>
+              </div>
+              <div class="photoGrid">${imgs || ''}</div>
+              ${p.comment ? `<div class="comment"><div class="k">Commentaire</div><div class="v">${escHtml(p.comment)}</div></div>` : ``}
+            </div>
+          `;
+        }).join('')}
+      </div>
+    ` : '';
+
+    // ✅ Carte signature (date + commentaire + image)
+    const signatureMetaHtml = `
+      <div class="sigInline">
+        <div class="k">Date de signature</div>
+        <div class="v">${escHtml(signatureDate ? signatureDate : '—')}</div>
+        ${signatureComment ? `
+          <div class="comment" style="margin-top:6px;">
+            <div class="k">Commentaire</div>
+            <div class="v">${escHtml(signatureComment)}</div>
+          </div>
+        ` : ''}
+      </div>
+    `;
+
+    const sigImageHtml = signatureDataURL ? `
+      <div class="sigInline">
+        <div class="k">Signature</div>
+        <img src="${escHtml(signatureDataURL)}" alt="signature">
+      </div>
+    ` : '';
+
+    const sigCardHtml = `
+      <div class="card">
+        <h3>Signature</h3>
+        ${signatureMetaHtml}
+        ${sigImageHtml}
+      </div>
+    `;
+
+    // ✅ Page CGV (toujours incluse, pour Vente / Monture / Livraison)
+    const cgvPageHtml = `
+      <div class="pageBreak"></div>
+      <div class="cgvPage">
+        <h2>${escHtml(CGV_TITLE)}</h2>
+        <div class="cgvBody">${CGV_HTML}</div>
+      </div>
+    `;
+
+    return `
+      <!doctype html>
+      <html lang="fr">
+      <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>Aperçu impression – ${escHtml(sectionName)}</title>
+        <style>${css}</style>
+      </head>
+      <body>
+        <div class="topbar">
+          <div style="font-weight:900;">Aperçu impression — ${escHtml(sectionName)}</div>
+          <div style="display:flex; gap:8px;">
+            <button class="btn" onclick="window.print()">Imprimer</button>
+            <button class="btn" onclick="window.close()">Fermer</button>
+          </div>
+        </div>
+
+        <div style="padding:0;">
+          <div class="printHeader">
+            <div class="t">${escHtml(titleMain)}</div>
+            <div class="s">${escHtml(sectionName)}</div>
+          </div>
+
+          <div class="card">
+            <h3>Informations</h3>
+            <div class="grid">${fieldsHtml}</div>
+          </div>
+
+          ${testsHtml}
+          ${checksHtml}
+          ${photosHtml}
+          ${sigCardHtml}
+          ${cgvPageHtml}
+        </div>
+      </body>
+      </html>
+    `;
+  }
+
+  function buildPreviewPayload(){
+    const sec = getOpenSection();
+    const sectionName = getSectionTitle(sec) || '—';
+    return {
+      titleMain: 'Formulaire vente META',
+      sectionName,
+      fields: collectFields(sec),
+      tests: collectTests(sec),
+      photos: collectPhotos(sec),
+      signatureDataURL: collectSignature(sec),
+      signatureComment: collectSignatureComment(sec),
+      signatureDate: collectSignatureDate(sec),
+      checkboxes: collectCheckboxes(sec)
+    };
+  }
+
+  function openPreviewWindow(){
+    const payload = buildPreviewPayload();
+    const html = buildPreviewHTML(payload);
+
+    const w = window.open('', '_blank');
+    if(!w){
+      alert("Impossible d'ouvrir l'aperçu (popup bloquée). Autorise les popups pour ce site.");
+      return;
+    }
+    w.document.open();
+    w.document.write(html);
+    w.document.close();
+  }
+
+  btnPreview.addEventListener('click', openPreviewWindow);
+
+
+  // ================== Optionnel : pré-remplir date de signature avec aujourd'hui ==================
+  (function setTodayForSignatureDates(){
+    const today = new Date().toISOString().slice(0,10);
+    ['vente_signature_date','mc_signature_date','liv_signature_date'].forEach(name => {
+      const el = document.querySelector(`input[name="${name}"]`);
+      if(el && !el.value) el.value = today;
+    });
+  })();
+</script>
+</body>
+</html>
